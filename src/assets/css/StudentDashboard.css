@@ -1,0 +1,42 @@
+.sub-assign:hover > img{
+    animation-name: leftRight;
+    animation-duration: 0.3s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+@keyframes leftRight {
+    from{
+        transform: translateX(0);
+    }
+    to{
+        transform: translateX(-20px);
+    }
+}
+.up-assign:hover > img{
+    animation-name: rightLeft;
+    animation-duration: 0.3s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+@keyframes rightLeft {
+    from{
+        transform: translateX(0);
+    }
+    to{
+        transform: translateX(20px);
+    }
+}
+.edit-profile{
+    transform: scale(0);
+    animation-name: popUp;
+    animation-fill-mode: forwards;
+    animation-duration: 0.4s;
+}
+@keyframes popUp{
+    from{
+        transform: scale(0);
+    }
+    to{
+        transform: scale(1);
+    }
+}
