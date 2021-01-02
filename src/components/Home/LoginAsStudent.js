@@ -49,7 +49,8 @@ class LoginAsStudent extends React.Component {
                 }else if(response.data.message === 'student authenticated'){
                     NotificationManager.success('Logged in', 'Successfully', 3000);
                     cookie.save('auth', response.data.data.token, { secure: false});
-                    this.props.history.push('/student-dashboard');
+                    cookie.save('type', 'student', { secure: false});
+                    this.props.history.push('/student/dashboard');
                     return;
                 }
             }

@@ -22,7 +22,7 @@ class HomeContainer extends React.Component {
     componentDidMount() {
         let auth = cookie.load('auth');
 
-        axios.get(apis.getStudentDetails, {
+        axios.get(apis.getUserDetails, {
             headers: {
                 "Authorization" : `bearer ${auth}`
             }
@@ -31,7 +31,10 @@ class HomeContainer extends React.Component {
             if(response.data) {
                 NotificationManager.success('Logged in', 'You are', 3000);
                 if(response.data.data.userType === 'student'){
-                    this.props.history.push('/student-dashboard');
+                    this.props.history.push('/student/dashboard');
+                }
+                if(response.data.data.userType === 'teacher'){
+                    this.props.history.push('/teacher/dashboard');
                 }
             }
         })

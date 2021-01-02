@@ -3,29 +3,25 @@ import NotificationManager from 'react-notifications/lib/NotificationManager';
 import axios from 'axios';
 import qs from 'qs';
 import cookie from 'react-cookies';
-
 import {apis} from '../../apis/apis';
 
-class StudentProfileSettings extends React.Component {
+class TeacherProfileSettings extends React.Component {
 
     constructor(props) {
         super(props);
-        const {
-            studentData
-        } = this.props;
         this.state = {
-            name: studentData.name,
-            branch: studentData.branch,
-            year: studentData.year,
+            name: this.props.teacherData.name,
+            branch: this.props.teacherData.branch,
+            subject: this.props.teacherData.subject,
             password: '',
             verify_password: ''
-        };
+        }
     }
 
     handleInputChange = (event) => {
         let { name, value } = event.target;
         this.setState({
-            [name]: value
+            [name] : value
         });
     }
 
@@ -33,7 +29,7 @@ class StudentProfileSettings extends React.Component {
         const {
             name,
             branch,
-            year,
+            subject,
             password,
             verify_password
         } = this.state;
@@ -45,12 +41,12 @@ class StudentProfileSettings extends React.Component {
         let params = {
             'name': name,
             'branch': branch,
-            'year': year,
+            'subject': subject,
             'password': password,
             'verify_password': verify_password
         }
         let auth = cookie.load('auth');
-        axios.post(apis.updateStudentDetails, qs.stringify(params), {
+        axios.post(apis.updateTeacherDetails, qs.stringify(params), {
             headers: {
                 "Authorization" : `bearer ${auth}`
             }
@@ -68,6 +64,7 @@ class StudentProfileSettings extends React.Component {
     }
 
     render() {
+
         const {
             handleToggleEditProfile
         } = this.props;
@@ -75,12 +72,12 @@ class StudentProfileSettings extends React.Component {
         const {
             name,
             branch,
-            year,
+            subject,
             password,
             verify_password
         } = this.state;
 
-        return(
+        return (
             <div className="d-flex" style={{position:'fixed',top: 0, left: 0, height: '100vh', width:'100vw', backgroundColor: 'rgba(216, 216, 216, 0.3)'}}>
                 <div className="bg-primary edit-profile" style={{boxShadow: '6px 6px 7px 2px rgba(0, 0, 0, 0.4)' ,position: 'absolute', top: '10vh', left: '25vw',height: '80vh', width: '50vw'}}>
                     <div style={{position: 'relative'}}>
@@ -89,11 +86,11 @@ class StudentProfileSettings extends React.Component {
                     </div>
                     <div className="col-10 mx-auto">
                         <div className="mb-2">
-                            <input value={name} onChange={this.handleInputChange} name="name" className="form-control" type="text" placeholder="Full name" maxLength={40}/>
+                            <input onChange={this.handleInputChange} value={name} name="name" className="form-control" type="text" placeholder="Full name" maxLength={40}/>
                         </div>
                         <div className="mb-2">
-                            <p className="mb-1 text-light">Your branch</p>
-                            <select value={branch} onChange={this.handleInputChange} className="form-select" name="branch" id="">
+                            <p className="mb-1">Your branch</p>
+                            <select onChange={this.handleInputChange} value={branch} className="form-select"  name="branch" id="">
                                 <option value="computer">Computer</option>
                                 <option value="electronics">Electrical</option>
                                 <option value="mechanical">Mechanical</option>
@@ -101,29 +98,14 @@ class StudentProfileSettings extends React.Component {
                                 <option value="production">Production</option>
                             </select>
                         </div>
-                        <div>
-                            <div className="mb-2">
-                                <p className="mb-1 text-light">Year of joining</p>
-                                <select value={year} onChange={this.handleInputChange} name="year" id="">
-                                    <option value="2010">2010</option>
-                                    <option value="2011">2011</option>
-                                    <option value="2012">2012</option>
-                                    <option value="2013">2013</option>
-                                    <option value="2014">2014</option>
-                                    <option value="2015">2015</option>
-                                    <option value="2016">2016</option>
-                                    <option value="2017">2017</option>
-                                    <option value="2018">2018</option>
-                                    <option value="2019">2019</option>
-                                    <option value="2020">2020</option>
-                                </select>
-                            </div>
+                        <div className="mb-2">
+                            <input onChange={this.handleInputChange} value={subject} name="subject" className="form-control" type="text" placeholder="Subject" maxLength={30}/>
                         </div>
                         <div className="mb-2">
-                            <input value={password} onChange={this.handleInputChange} name="password" className="form-control" type="password" placeholder="Password" maxLength={30}/>
+                            <input onChange={this.handleInputChange} value={password} name="password" className="form-control" type="password" placeholder="Password" maxLength={30}/>
                         </div>
                         <div className="mb-2">
-                            <input value={verify_password} onChange={this.handleInputChange} name="verify_password" className="form-control" type="password" placeholder="Verify password" maxLength={30}/>
+                            <input onChange={this.handleInputChange} value={verify_password} name="verify_password" className="form-control" type="password" placeholder="Verify password" maxLength={30}/>
                         </div>
                     </div>
 
@@ -138,4 +120,4 @@ class StudentProfileSettings extends React.Component {
     }
 }
 
-export default StudentProfileSettings;
+export default TeacherProfileSettings;

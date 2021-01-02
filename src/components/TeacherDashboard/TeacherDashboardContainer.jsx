@@ -1,7 +1,7 @@
 import React from 'react';
-import DashboardOverview from './DashboardOverview';
-import StudentProfileSettings from './StudentProfileSettings';
-import UpcomingAssignmentsContainer from './UpcomingAssignmentsContainer.jsx';
+import TeacherDashboardOverview from './TeacherDashboardOverview';
+import TeacherProfileSettings from './TeacherProfileSettings';
+import AddAssignmentContainer from './AddAssignmentContainer';
 
 import cookie from 'react-cookies';
 import axios from 'axios';
@@ -9,16 +9,17 @@ import { withRouter } from 'react-router-dom';
 import {NotificationManager} from 'react-notifications';
 
 import {apis} from '../../apis/apis';
-import '../../assets/css/StudentDashboard.css';
+import '../../assets/css/TeacherDashboard.css';
 
-class StudentDashboardContainer extends React.Component {
-    
-    constructor() {
+
+class TeacherDashboardContainer extends React.Component {
+
+    constructor () {
         super();
         this.state = {
-            studentData: {},
+            teacherData: {},
             showProfileSettings: false,
-            showUpcomingAssignments: false
+            showAddAssignment: false
         }
     }
 
@@ -38,7 +39,7 @@ class StudentDashboardContainer extends React.Component {
                 NotificationManager.success('Logged in', 'You are', 3000);
             }
             this.setState({
-                studentData: response.data.data
+                teacherData: response.data.data
             });
         })
         .catch((error) => {
@@ -59,43 +60,46 @@ class StudentDashboardContainer extends React.Component {
         });
     }
 
-    handleToggleShowUpcomingAssignments = () => {
-        let {showUpcomingAssignments} = this.state;
-        showUpcomingAssignments = !showUpcomingAssignments;
+    handleToggleAddAssignment = () => {
+        let {showAddAssignment} = this.state;
+        showAddAssignment = !showAddAssignment;
         this.setState({
-            showUpcomingAssignments
+            showAddAssignment
         });
     }
 
     render() {
+
         const {
+            teacherData,
             showProfileSettings,
-            studentData,
-            showUpcomingAssignments
+            showAddAssignment
         } = this.state;
 
-
-        return(
+        return (
             <div>
                 <div className="col-12 mt-2 mb-5">
                     <p className="" style={{fontSize: 50, textAlign: 'center', fontWeight: 'bold', color: '#5255AC'}}>My Classroom</p>
                 </div>
-                <DashboardOverview
+
+                <TeacherDashboardOverview
+                    teacherData={teacherData}
                     handleToggleEditProfile={this.handleToggleEditProfile}
-                    studentData={studentData}
-                    handleToggleShowUpcomingAssignments={this.handleToggleShowUpcomingAssignments}
+                    handleToggleAddAssignment={this.handleToggleAddAssignment}
                 />
+
                 {
                     showProfileSettings &&
-                    <StudentProfileSettings
+                    <TeacherProfileSettings
                         handleToggleEditProfile={this.handleToggleEditProfile}
-                        studentData={studentData}
+                        teacherData={teacherData}
                     />
                 }
+
                 {
-                    showUpcomingAssignments &&
-                    <UpcomingAssignmentsContainer
-                        handleToggleShowUpcomingAssignments={this.handleToggleShowUpcomingAssignments}
+                    showAddAssignment &&
+                    <AddAssignmentContainer
+                        handleToggleAddAssignment={this.handleToggleAddAssignment}
                     />
                 }
 
@@ -104,4 +108,4 @@ class StudentDashboardContainer extends React.Component {
     }
 }
 
-export default withRouter(StudentDashboardContainer);
+export default withRouter(TeacherDashboardContainer);

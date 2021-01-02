@@ -41,29 +41,9 @@
     }
 }
 
-.slide-from-left{
-    animation-name: slideFromLeft;
-    animation-fill-mode: forwards;
-    animation-duration: 0.5s;
+.icons > img {
+    transition: all 0.2s;
 }
-@keyframes slideFromLeft{
-    from{
-        transform: translateX(-1000px);
-    }
-    to{
-        transform: translateX(0);
-    }
-}
-.slide-to-down{
-    animation-name: slideDown;
-    animation-fill-mode: forwards;
-    animation-duration: 0.5s;
-}
-@keyframes slideDown{
-    from{
-        transform: translateY(0);
-    }
-    to{
-        transform: translateY(1000px);
-    }
+.icons:hover > img{
+    transform: scale(1.1);
 }

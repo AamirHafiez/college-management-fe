@@ -2,9 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import qs from 'qs';
 import cookie from 'react-cookies';
-
 import {NotificationManager} from 'react-notifications';
-
+import {withRouter} from 'react-router-dom';
 import {apis} from '../../apis/apis';
 
 class LoginAsTeacher extends React.Component {
@@ -47,8 +46,11 @@ class LoginAsTeacher extends React.Component {
                     NotificationManager.error('Email or password is invalid', 'Check:', 3000);
                     return;
                 }else if(response.data.message === 'teacher authenticated'){
+                    console.log(response.data);
                     NotificationManager.success('Logged in', 'Successfully', 3000);
                     cookie.save('auth', response.data.data.token, { secure: false});
+                    cookie.save('type', 'teacher', { secure: false});
+                    this.props.history.push('/teacher/dashboard');
                     return;
                 }
             }
@@ -98,4 +100,4 @@ class LoginAsTeacher extends React.Component {
     }
 } 
 
-export default LoginAsTeacher;
+export default withRouter(LoginAsTeacher);
