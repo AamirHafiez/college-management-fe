@@ -1,12 +1,38 @@
 import React from 'react';
+import AssignmentTab from './AssignmentTab';
+
+import axios from 'axios';
+import {apis} from '../../apis/apis';
+import {NotificationManager} from 'react-notifications';
+import cookie from 'react-cookies';
 
 class UpcomingAssignmentsContainer extends React.Component{
 
     constructor() {
         super();
         this.state = {
-            animationClass: 'slide-from-left'
+            animationClass: 'slide-from-left',
+            assignments: []
         }
+    }
+
+    componentDidMount() {
+        let auth = cookie.load('auth');
+        axios.get(apis.getUpcomingAssignments, {
+            headers: {
+                'Authorization': `bearer ${auth}`
+            }
+        })
+        .then((response) => {
+            console.log('response' ,response.data.assignments);
+            this.setState({
+                assignments: response.data.assignments
+            });
+        })  
+        .catch((error) => {
+            NotificationManager.error('Something went wrong', 'Server error:', 3000);
+            console.log('error', error);
+        });
     }
 
     handleClickCloseBtn = () => {
@@ -20,7 +46,8 @@ class UpcomingAssignmentsContainer extends React.Component{
     render() {
 
         const {
-            animationClass
+            animationClass,
+            assignments
         } = this.state;
 
         return(
@@ -28,6 +55,20 @@ class UpcomingAssignmentsContainer extends React.Component{
                 <div className={animationClass + " col-6"} style={{boxShadow: '6px 6px 7px 2px rgba(0, 0, 0, 0.4)', height: '80vh', backgroundColor: 'white'}}>
                     <div className="mt-2 d-flex justify-content-end col-12" style={{paddingRight: 15, cursor: 'pointer'}} title="close">
                         <img onClick={this.handleClickCloseBtn} height={20} width={20} src={'https://www.flaticon.com/svg/static/icons/svg/1828/1828665.svg'} alt="close"/>
+                    </div>
+                    <div style={{textAlign: 'center'}}>
+                        <p style={{fontSize: 38}}>Your upcoming assignments</p>                       
+                    </div>
+                    <div style={{height: '80%', overflowY: 'auto'}}>
+                        {
+                            assignments.map((assignment) => {
+                                return <AssignmentTab
+                                    data={assignment}
+                                    key={assignment._id}
+                                />
+                            })
+                        }
+
                     </div>
                 </div>
             </div>

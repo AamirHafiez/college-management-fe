@@ -8,5 +8,6 @@ module.exports.apis = {
         getUserDetails: `${domain}/user-details`,
         updateStudentDetails: `${domain}/student/update-details`,
         updateTeacherDetails: `${domain}/teacher/update-details`,
-        addAssignment: `${domain}/teacher/add-assignment`
+        addAssignment: `${domain}/teacher/add-assignment`,
+        getUpcomingAssignments: `${domain}/student/upcoming-assignments`
 }

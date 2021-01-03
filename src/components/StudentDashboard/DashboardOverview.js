@@ -6,7 +6,8 @@ const DashboardOverview = (props) => {
     const {
         handleToggleEditProfile,
         studentData,
-        handleToggleShowUpcomingAssignments
+        handleToggleShowUpcomingAssignments,
+        handleToggleShowSubmittedAssignments
     } = props;
 
     const handleClickLogout = () => {
@@ -24,7 +25,7 @@ const DashboardOverview = (props) => {
                     <p style={{textAlign: 'center', fontSize: 24}}>View your:</p>
                 </div>
                 <div className="d-flex col-8 justify-content-around mx-auto">
-                    <div className="sub-assign" style={{cursor: 'pointer', textAlign:'center'}}>
+                    <div onClick={handleToggleShowSubmittedAssignments} className="sub-assign" style={{cursor: 'pointer', textAlign:'center'}}>
                         <img height={200} width={200} src={'https://www.flaticon.com/svg/static/icons/svg/892/892639.svg'} alt="prev"/>
                         <p style={{textAlign:'center', fontSize: 28}}>Submitted Assignments</p>
                     </div>

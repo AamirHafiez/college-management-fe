@@ -2,6 +2,7 @@ import React from 'react';
 import DashboardOverview from './DashboardOverview';
 import StudentProfileSettings from './StudentProfileSettings';
 import UpcomingAssignmentsContainer from './UpcomingAssignmentsContainer.jsx';
+import SubmittedAssignmentsContainer from './SubmittedAssignmentsContainer.jsx';
 
 import cookie from 'react-cookies';
 import axios from 'axios';
@@ -18,7 +19,8 @@ class StudentDashboardContainer extends React.Component {
         this.state = {
             studentData: {},
             showProfileSettings: false,
-            showUpcomingAssignments: false
+            showUpcomingAssignments: false,
+            showSubmittedAssignments: false
         }
     }
 
@@ -67,11 +69,20 @@ class StudentDashboardContainer extends React.Component {
         });
     }
 
+    handleToggleShowSubmittedAssignments = () => {
+        let {showSubmittedAssignments} = this.state;
+        showSubmittedAssignments = !showSubmittedAssignments;
+        this.setState({
+            showSubmittedAssignments
+        });
+    }
+
     render() {
         const {
             showProfileSettings,
             studentData,
-            showUpcomingAssignments
+            showUpcomingAssignments,
+            showSubmittedAssignments
         } = this.state;
 
 
@@ -84,6 +95,7 @@ class StudentDashboardContainer extends React.Component {
                     handleToggleEditProfile={this.handleToggleEditProfile}
                     studentData={studentData}
                     handleToggleShowUpcomingAssignments={this.handleToggleShowUpcomingAssignments}
+                    handleToggleShowSubmittedAssignments={this.handleToggleShowSubmittedAssignments}
                 />
                 {
                     showProfileSettings &&
@@ -96,6 +108,12 @@ class StudentDashboardContainer extends React.Component {
                     showUpcomingAssignments &&
                     <UpcomingAssignmentsContainer
                         handleToggleShowUpcomingAssignments={this.handleToggleShowUpcomingAssignments}
+                    />
+                }
+                {
+                    showSubmittedAssignments &&
+                    <SubmittedAssignmentsContainer
+                        handleToggleShowSubmittedAssignments={this.handleToggleShowSubmittedAssignments}
                     />
                 }
 
