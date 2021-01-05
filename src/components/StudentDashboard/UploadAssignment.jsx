@@ -1,6 +1,10 @@
 import React from 'react';
 
 import {NotificationManager} from 'react-notifications';
+import axios from 'axios';
+import cookie from 'react-cookies';
+import {apis} from '../../apis/apis';
+import qs from 'qs';
 
 class UploadAssignment extends React.Component {
 
@@ -40,7 +44,40 @@ class UploadAssignment extends React.Component {
             NotificationManager.error('Please upload PDFs of size less than 5MB', 'Error', 3000);
             return;
         }
-        NotificationManager.success('Uploaded', '', 3000);
+
+        const data = new FormData();
+        data.append('file', selectedFile);
+        let auth = cookie.load('auth');
+        axios.post(apis.uploadAssignmentPDF, data, {
+            headers: {
+                'Authorization': `bearer ${auth}`
+            } 
+        })
+        .then((response) => {
+            let id = {
+                'id' : this.props.assignmentId
+            }
+            axios.post(apis.addStudentToAssignment, qs.stringify(id),{
+                headers: {
+                    'Authorization': `bearer ${auth}`
+                } 
+            })
+            .then((res) => {
+                if(res.data.message === 'assignment uploaded' && response.data.message === 'assignment uploaded'){
+                    NotificationManager.success('Uploaded', '', 3000);
+                }else{
+                    NotificationManager.success('Could not upload', '', 3000);
+                }
+            })
+            .catch((error) => {
+                NotificationManager.error('Something went wrong', 'Server error:', 3000);
+                console.log('error', error);
+            });
+        })
+        .catch((error) => {
+            NotificationManager.error('Something went wrong', 'Server error:', 3000);
+            console.log('error', error);
+        });
     }
 
     render() {
@@ -56,7 +93,7 @@ class UploadAssignment extends React.Component {
                 <div>
                     <div>
                         <div className="d-flex justify-content-end">
-                            <img onClick={this.handleCloseBtnClick} style={{cursor: 'pointer'}} title="close description" height={20} width={20} src={'https://www.flaticon.com/svg/static/icons/svg/1828/1828665.svg'} alt=""/>
+                            <img onClick={this.handleCloseBtnClick} style={{cursor: 'pointer'}} title="close upload" height={20} width={20} src={'https://www.flaticon.com/svg/static/icons/svg/1828/1828665.svg'} alt=""/>
                         </div>
                         <div>
                             <form action="">

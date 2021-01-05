@@ -84,6 +84,7 @@
     animation-name: increaseHeight;
     animation-fill-mode: forwards;
     animation-duration: 0.8s;
+    overflow: hidden;
 }
 @keyframes increaseHeight {
     from{
@@ -97,6 +98,7 @@
     animation-name: decreaseHeight;
     animation-fill-mode: forwards;
     animation-duration: 0.28s;
+    overflow: hidden;
 }
 @keyframes decreaseHeight {
     to{

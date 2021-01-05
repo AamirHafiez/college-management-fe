@@ -108,6 +108,7 @@ class AssignmentTab extends React.Component{
                     showUploadAssignment &&
                     <UploadAssignment
                         toggleShowUploadAssignment = {this.toggleShowUploadAssignment}
+                        assignmentId = {data._id}
                     />
                 }
             </div>

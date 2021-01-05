@@ -9,5 +9,7 @@ module.exports.apis = {
         updateStudentDetails: `${domain}/student/update-details`,
         updateTeacherDetails: `${domain}/teacher/update-details`,
         addAssignment: `${domain}/teacher/add-assignment`,
-        getUpcomingAssignments: `${domain}/student/upcoming-assignments`
+        getUpcomingAssignments: `${domain}/student/upcoming-assignments`,
+        uploadAssignmentPDF : `${domain}/student/upload-assignment`,
+        addStudentToAssignment: `${domain}/student/add-student-to-assigment`
 }
