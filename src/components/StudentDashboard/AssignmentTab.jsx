@@ -55,7 +55,8 @@ class AssignmentTab extends React.Component{
         } = this.state;
 
         const {
-            data
+            data,
+            afterAssignmentIsUploaded
         } = this.props;
 
         return(
@@ -109,6 +110,7 @@ class AssignmentTab extends React.Component{
                     <UploadAssignment
                         toggleShowUploadAssignment = {this.toggleShowUploadAssignment}
                         assignmentId = {data._id}
+                        afterAssignmentIsUploaded={afterAssignmentIsUploaded}
                     />
                 }
             </div>

@@ -12,7 +12,8 @@ class UpcomingAssignmentsContainer extends React.Component{
         super();
         this.state = {
             animationClass: 'slide-from-left',
-            assignments: []
+            assignments: [],
+            showNoUpComingAssignments: false
         }
     }
 
@@ -24,9 +25,13 @@ class UpcomingAssignmentsContainer extends React.Component{
             }
         })
         .then((response) => {
-            console.log('response' ,response.data.assignments);
+            let showNoUpComingAssignments = false;
+            if(response.data.assignments.length <= 0){  
+                showNoUpComingAssignments = true
+            }
             this.setState({
-                assignments: response.data.assignments
+                assignments: response.data.assignments,
+                showNoUpComingAssignments
             });
         })  
         .catch((error) => {
@@ -43,11 +48,35 @@ class UpcomingAssignmentsContainer extends React.Component{
         
     }
     
+    afterAssignmentIsUploaded = () => {
+        let auth = cookie.load('auth');
+        axios.get(apis.getUpcomingAssignments, {
+            headers: {
+                'Authorization': `bearer ${auth}`
+            }
+        })
+        .then((response) => {
+            let showNoUpComingAssignments = false;
+            if(response.data.assignments.length <= 0){  
+                showNoUpComingAssignments = true
+            }
+            this.setState({
+                assignments: response.data.assignments,
+                showNoUpComingAssignments
+            });
+        })  
+        .catch((error) => {
+            NotificationManager.error('Something went wrong', 'Server error:', 3000);
+            console.log('error', error);
+        });
+    }
+
     render() {
 
         const {
             animationClass,
-            assignments
+            assignments,
+            showNoUpComingAssignments
         } = this.state;
 
         return(
@@ -65,10 +94,18 @@ class UpcomingAssignmentsContainer extends React.Component{
                                 return <AssignmentTab
                                     data={assignment}
                                     key={assignment._id}
+                                    afterAssignmentIsUploaded={this.afterAssignmentIsUploaded}
                                 />
                             })
                         }
-
+                        {
+                            showNoUpComingAssignments &&
+                            <div style={{textAlign: 'center'}}>
+                                <p className="text-success mt-5" style={{fontSize: 26}}>No Upcoming Assignments</p>
+                                <img className="mt-4" height={60} width={60} src={'https://www.flaticon.com/svg/static/icons/svg/1828/1828640.svg'} alt="Done"/>
+                                <p className="text-primary mt-5" style={{fontSize: 22}}>You are all caught up!</p>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

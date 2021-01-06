@@ -4,7 +4,6 @@ import {NotificationManager} from 'react-notifications';
 import axios from 'axios';
 import cookie from 'react-cookies';
 import {apis} from '../../apis/apis';
-import qs from 'qs';
 
 class UploadAssignment extends React.Component {
 
@@ -50,29 +49,18 @@ class UploadAssignment extends React.Component {
         let auth = cookie.load('auth');
         axios.post(apis.uploadAssignmentPDF, data, {
             headers: {
-                'Authorization': `bearer ${auth}`
+                'Authorization': `bearer ${auth}`,
+                'Content-Type': 'multipart/form-data',
+                'id': this.props.assignmentId
             } 
         })
         .then((response) => {
-            let id = {
-                'id' : this.props.assignmentId
-            }
-            axios.post(apis.addStudentToAssignment, qs.stringify(id),{
-                headers: {
-                    'Authorization': `bearer ${auth}`
-                } 
-            })
-            .then((res) => {
-                if(res.data.message === 'assignment uploaded' && response.data.message === 'assignment uploaded'){
-                    NotificationManager.success('Uploaded', '', 3000);
-                }else{
-                    NotificationManager.success('Could not upload', '', 3000);
-                }
-            })
-            .catch((error) => {
+            if(response.data.message === 'assignment uploaded'){
+                NotificationManager.success('Assignment Submitted', '', 3000);
+                this.props.afterAssignmentIsUploaded();
+            }else{
                 NotificationManager.error('Something went wrong', 'Server error:', 3000);
-                console.log('error', error);
-            });
+            }
         })
         .catch((error) => {
             NotificationManager.error('Something went wrong', 'Server error:', 3000);
@@ -84,7 +72,6 @@ class UploadAssignment extends React.Component {
 
         const {
             animation,
-            selectedFile
         } = this.state;
 
         return(
