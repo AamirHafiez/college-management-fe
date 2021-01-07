@@ -5,7 +5,8 @@ const TeacherDashboardContainer = (props) => {
     const {
         teacherData,
         handleToggleEditProfile,
-        handleToggleAddAssignment
+        handleToggleAddAssignment,
+        handleToggleViewSubmissionsContainer
     } = props;
 
     const handleClickLogout = () => {
@@ -24,7 +25,7 @@ const TeacherDashboardContainer = (props) => {
                     <img height={130} width={130} src={'https://www.flaticon.com/svg/static/icons/svg/1828/1828817.svg'} alt="Add"/>
                     <p style={{fontSize:20}}>Add Assignment</p>
                 </div>
-                <div className="icons" style={{alignItems: 'center', cursor: 'pointer'}}>
+                <div onClick={handleToggleViewSubmissionsContainer} className="icons" style={{alignItems: 'center', cursor: 'pointer'}}>
                     <img height={130} width={130} src={'https://www.flaticon.com/svg/static/icons/svg/2235/2235419.svg'} alt="View"/>
                     <p style={{fontSize:20}}>View Submissions</p>
                 </div>

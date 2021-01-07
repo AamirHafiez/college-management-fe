@@ -2,6 +2,7 @@ import React from 'react';
 import TeacherDashboardOverview from './TeacherDashboardOverview';
 import TeacherProfileSettings from './TeacherProfileSettings';
 import AddAssignmentContainer from './AddAssignmentContainer';
+import ViewSubmissionsContainer from './ViewSubmissionsContainer';
 
 import cookie from 'react-cookies';
 import axios from 'axios';
@@ -19,7 +20,8 @@ class TeacherDashboardContainer extends React.Component {
         this.state = {
             teacherData: {},
             showProfileSettings: false,
-            showAddAssignment: false
+            showAddAssignment: false,
+            showViewSubmissionsContainer: false,
         }
     }
 
@@ -68,12 +70,21 @@ class TeacherDashboardContainer extends React.Component {
         });
     }
 
+    handleToggleViewSubmissionsContainer = () => {
+        let {showViewSubmissionsContainer} = this.state;
+        showViewSubmissionsContainer = !showViewSubmissionsContainer;
+        this.setState({
+            showViewSubmissionsContainer
+        });
+    }
+
     render() {
 
         const {
             teacherData,
             showProfileSettings,
-            showAddAssignment
+            showAddAssignment,
+            showViewSubmissionsContainer
         } = this.state;
 
         return (
@@ -86,6 +97,7 @@ class TeacherDashboardContainer extends React.Component {
                     teacherData={teacherData}
                     handleToggleEditProfile={this.handleToggleEditProfile}
                     handleToggleAddAssignment={this.handleToggleAddAssignment}
+                    handleToggleViewSubmissionsContainer={this.handleToggleViewSubmissionsContainer}
                 />
 
                 {
@@ -102,7 +114,12 @@ class TeacherDashboardContainer extends React.Component {
                         handleToggleAddAssignment={this.handleToggleAddAssignment}
                     />
                 }
-
+                {
+                    showViewSubmissionsContainer &&
+                    <ViewSubmissionsContainer
+                        handleToggleViewSubmissionsContainer={this.handleToggleViewSubmissionsContainer}
+                    />
+                }
             </div>
         );
     }
