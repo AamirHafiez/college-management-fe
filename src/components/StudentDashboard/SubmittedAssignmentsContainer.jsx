@@ -48,8 +48,6 @@ class SubmittedAssignmentsContainer extends React.Component{
             assignmentsSubmitted,
         } = this.state;
 
-        console.log(assignmentsSubmitted);
-
         return(
             <div className="d-flex justify-content-center align-items-center" style={{height: '100vh', width: '100vw', backgroundColor: 'rgba(0, 0, 0, 0.5)', position: 'fixed', top: 0}}>
                 <div className={animationClass + " col-6"} style={{boxShadow: '6px 6px 7px 2px rgba(0, 0, 0, 0.4)', height: '80vh', backgroundColor: 'white'}}>
@@ -65,6 +63,7 @@ class SubmittedAssignmentsContainer extends React.Component{
                                 return(
                                     <SubmittedAssignmentTab
                                         assignment={assignment}
+                                        key={assignment.id  }
                                     />
                                 )
                             })

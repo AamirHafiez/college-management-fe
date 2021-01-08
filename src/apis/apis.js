@@ -14,5 +14,6 @@ module.exports.apis = {
         getSubmittedAssignments: `${domain}/student/get-submitted-assignments`,
         getTeacherAssignments: `${domain}/teacher/get-assignments`,
         getSubmissions: `${domain}/teacher/view-submissions`,
-        addGrade: `${domain}/teacher/add-grade`
+        addGrade: `${domain}/teacher/add-grade`,
+        getGrade: `${domain}/student/get-grade`
 }

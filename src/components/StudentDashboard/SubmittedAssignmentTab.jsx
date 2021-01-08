@@ -1,42 +1,101 @@
 import React from 'react';
 
-const SubmittedAssignmentTab = (props) => {
+import axios from 'axios';
+import {NotificationManager} from 'react-notifications';
+import cookie from 'react-cookies';
+import {apis} from '../../apis/apis';
 
-    const {
-        assignment
-    } = props;
+class SubmittedAssignmentTab extends React.Component {
 
-    const {
-        title,
-    } = assignment;
+    constructor() {
+        super();
+        this.state = {
+            grade: ''
+        }
+    }
 
-    const {
-        subject,
-        name
-    } = assignment.teacher;
+    handleViewGradeClick = () => {
+        let auth = cookie.load('auth');
+        axios.get(apis.getGrade, {
+            headers: {
+                'Authorization': `bearer ${auth}`
+            },
+            params: {
+                'assignment': this.props.assignment._id
+            }
+        })
+        .then((response) => {
+            if(response.data.grade !== ''){
+                this.setState({
+                    grade: response.data.grade
+                });
+            }else{
+                NotificationManager.info('', 'This assignment has not been graded yet!', 3000);
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            NotificationManager.error('Something went wrong', 'Server Error:', 3000);
+        });
+    }
 
-    return(
-        <div style={{boxShadow: '2px 2px 8px 0 rgba(0,0,0,0.5)'}} className="mb-4 rounded bg-success col-11 mx-auto pt-2 pb-2">
-            <div className="col-11 mx-auto d-flex justify-content-between align-items-center">
-                <div>
+    render () {
+        const {
+            assignment
+        } = this.props;
+    
+        let {
+            title,
+            deadline
+        } = assignment;
+    
+        deadline =  deadline.slice(8, 10) + '-' + deadline.slice(5, 7) + '-' + deadline.slice(0, 4);
+
+        const {
+            subject,
+            name
+        } = assignment.teacher;
+
+        const {
+            grade
+        } = this.state;
+        
+        console.log(grade);
+        let disabled, btnText;
+        if(grade === ''){
+            disabled = '';
+            btnText = 'View Grade';
+        }else{
+            disabled='disabled';
+            btnText = `Grade ${grade}`;
+        }
+
+        return(
+            <div style={{boxShadow: '2px 2px 8px 0 rgba(0,0,0,0.5)'}} className="mb-4 rounded bg-success col-11 mx-auto pt-2 pb-2">
+                <div className="col-11 mx-auto d-flex justify-content-between align-items-center">
                     <div>
-                        <p className="m-0 p-0 text-light" style={{fontSize:24, fontWeight: 'bold'}}>{title}</p>
+                        <div>
+                            <p className="m-0 p-0 text-light" style={{fontSize:24, fontWeight: 'bold'}}>{title}</p>
+                        </div>
+                        <div>
+                            <p className="m-0 p-0 text-light">Subject - {subject}</p>
+                        </div>
+                        <div>
+                            <p className="m-0 p-0 text-light">Teacher - {name}</p>
+                        </div>
                     </div>
                     <div>
-                        <p className="m-0 p-0 text-light">Subject - {subject}</p>
+                        <div>
+                            <p className="p-0 m-0 text-warning">Deadline | {deadline}</p>
+                        </div>
+                        <button disabled={disabled} onClick={this.handleViewGradeClick} className="btn btn-light bg-gradient">
+                            {btnText}
+                        </button>
                     </div>
-                    <div>
-                        <p className="m-0 p-0 text-light">Teacher - {name}</p>
-                    </div>
-                </div>
-                <div>
-                    <button className="btn btn-light bg-gradient">
-                        View Grade
-                    </button>
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
 }
 
 export default SubmittedAssignmentTab;
