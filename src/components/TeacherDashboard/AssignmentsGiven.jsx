@@ -1,4 +1,6 @@
 import React from 'react';
+import AssignmentDescription from './AssignmentDescription';
+import StudentSubmissionsContainer from './StudentSubmissionsContainer';
 
 class AssignmentsGiven extends React.Component {
 
@@ -10,6 +12,7 @@ class AssignmentsGiven extends React.Component {
             createdAt,
             year,
             deadline,
+            description
         } = props.assignment;
 
         deadline = deadline.slice(8, 10) + '-' + deadline.slice(5, 7) + '-' + deadline.slice(0, 4);
@@ -20,7 +23,26 @@ class AssignmentsGiven extends React.Component {
             createdAt: createdAt,
             year: year,
             deadline: deadline,
+            showDescription: false,
+            showSubmissionsOfStudents: false,
+            description: description
         }
+    }
+
+    toggleShowDescription = () => {
+        let { showDescription } = this.state;
+        showDescription = !showDescription;
+        this.setState({
+            showDescription
+        });
+    }
+
+    toggleShowSubmissionsOfStudents = () => {
+        let { showSubmissionsOfStudents } = this.state;
+        showSubmissionsOfStudents = !showSubmissionsOfStudents;
+        this.setState({
+            showSubmissionsOfStudents
+        });
     }
 
     render() {
@@ -30,6 +52,9 @@ class AssignmentsGiven extends React.Component {
             createdAt,
             year,
             deadline,
+            description,
+            showDescription,
+            showSubmissionsOfStudents
         } = this.state;
 
         return(
@@ -47,15 +72,30 @@ class AssignmentsGiven extends React.Component {
                             <p style={{color: 'gold'}}>Deadline | {deadline}</p>
                         </div>
                         <div>
-                            <button className="btn btn-light">
+                            <button onClick={this.toggleShowDescription} className="btn btn-light">
                                 View description
                             </button>
-                            <button className="mt-2 btn btn-success">
+                            <button onClick={this.toggleShowSubmissionsOfStudents} className="mt-2 btn btn-success">
                                 View submissions
                             </button>
                         </div>
                     </div>
                 </div>
+                {
+                    showDescription &&
+                    <AssignmentDescription
+                        title={title}
+                        description={description}
+                        toggleShowDescription={this.toggleShowDescription}
+                    />
+                }
+                {
+                    showSubmissionsOfStudents && 
+                    <StudentSubmissionsContainer
+                        toggleShowSubmissionsOfStudents={this.toggleShowSubmissionsOfStudents}
+                        assignment = {this.props.assignment}
+                    />
+                }
             </div>
         );
     }

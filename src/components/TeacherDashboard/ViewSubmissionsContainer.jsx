@@ -12,7 +12,8 @@ class ViewSubmissionsContainer extends React.Component {
         super();
         this.state = {
             animation: 'slide-down-bounce',
-            assignments: []
+            assignments: [],
+            showDescription: false
         }
     }
 
@@ -45,7 +46,7 @@ class ViewSubmissionsContainer extends React.Component {
 
         const {
             animation,
-            assignments
+            assignments,
         } = this.state;
 
         console.log(assignments);
