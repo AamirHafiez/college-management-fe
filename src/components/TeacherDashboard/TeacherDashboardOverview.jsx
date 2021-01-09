@@ -20,7 +20,7 @@ const TeacherDashboardContainer = (props) => {
                 <p style={{textAlign: 'center', fontSize: 30}}>Welcome Prof. {teacherData.name}!</p>
             </div>
 
-            <div className="d-flex col-5 justify-content-around mx-auto">
+            <div className="d-flex col-10 col-md-5 justify-content-around mx-auto">
                 <div onClick={handleToggleAddAssignment} className="icons" style={{alignItems: 'center', cursor: 'pointer'}}>
                     <img height={130} width={130} src={'https://www.flaticon.com/svg/static/icons/svg/1828/1828817.svg'} alt="Add"/>
                     <p style={{fontSize:20}}>Add Assignment</p>
@@ -32,12 +32,12 @@ const TeacherDashboardContainer = (props) => {
             </div>
 
             <div className="mt-3" style={{textAlign: 'center'}}>
-                <button onClick={handleToggleEditProfile} className="btn btn-primary col-2">
+                <button onClick={handleToggleEditProfile} className="btn btn-primary col-md-4 col-lg-2 col-8">
                     Profile Settings
                 </button>
             </div>
             <div className="mt-3" style={{textAlign: 'center'}}>
-                <button onClick= {handleClickLogout} className="btn btn-success col-2">
+                <button onClick= {handleClickLogout} className="btn btn-success col-md-4 col-lg-2 col-8">
                     Logout
                 </button>
             </div>

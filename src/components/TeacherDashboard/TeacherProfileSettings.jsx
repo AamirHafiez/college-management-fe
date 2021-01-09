@@ -78,8 +78,8 @@ class TeacherProfileSettings extends React.Component {
         } = this.state;
 
         return (
-            <div className="d-flex" style={{position:'fixed',top: 0, left: 0, height: '100vh', width:'100vw', backgroundColor: 'rgba(216, 216, 216, 0.3)'}}>
-                <div className="bg-primary edit-profile" style={{boxShadow: '6px 6px 7px 2px rgba(0, 0, 0, 0.4)' ,position: 'absolute', top: '10vh', left: '25vw',height: '80vh', width: '50vw'}}>
+            <div className="d-flex justify-content-center align-items-center" style={{position:'fixed',top: 0, left: 0, height: '100vh', width:'100vw', backgroundColor: 'rgba(216, 216, 216, 0.3)'}}>
+                <div className="bg-primary edit-profile col-10 col-md-8 col-lg-5" style={{boxShadow: '6px 6px 7px 2px rgba(0, 0, 0, 0.4)' ,position: 'absolute', top: '10vh',height: '80vh'}}>
                     <div style={{position: 'relative'}}>
                         <p className="text-light mt-4" style={{textAlign: 'center', fontSize: 30}}>Edit Profile</p>
                         <img onClick={handleToggleEditProfile} style={{position: 'absolute', left: '90%', top: 0, cursor: 'pointer'}} title="close" height={40} width={40} src={'https://www.flaticon.com/svg/static/icons/svg/753/753345.svg'} alt="close"/>

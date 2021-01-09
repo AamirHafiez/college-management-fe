@@ -36,12 +36,12 @@ const DashboardOverview = (props) => {
                 </div>
             </div>
             <div className="mt-3" style={{textAlign: 'center'}}>
-                <button onClick={handleToggleEditProfile} className="btn btn-primary col-2">
+                <button onClick={handleToggleEditProfile} className="btn btn-primary col-md-4 col-lg-2 col-8">
                     Profile Settings
                 </button>
             </div>
             <div className="mt-3" style={{textAlign: 'center'}}>
-                <button onClick= {handleClickLogout} className="btn btn-success col-2">
+                <button onClick= {handleClickLogout} className="btn btn-success col-md-4 col-lg-2 col-8">
                     Logout
                 </button>
             </div>

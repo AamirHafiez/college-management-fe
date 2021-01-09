@@ -61,7 +61,7 @@ class AssignmentTab extends React.Component{
 
         return(
             <div  style={{boxShadow: '2px 2px 8px 0 rgba(0,0,0,0.5)'}} className="mb-4 mx-auto rounded p-2 bg-primary col-11">
-                <div className="d-flex justify-content-between">
+                <div className="d-flex flex-wrap justify-content-between">
                     <div>
                         <div>
                             <p style={{fontSize:24, fontWeight: 'bold'}} className="p-0 m-0 text-light">{title}</p>
@@ -73,8 +73,8 @@ class AssignmentTab extends React.Component{
                             <p className="p-0 m-0 text-light">Teacher - Prof. {teacher}</p>
                         </div>
                     </div>
-                    <div className="d-flex col-4 d-flex justify-content-around align-items-center">
-                        <div>
+                    <div className="d-flex col-4 d-flex flex-wrap justify-content-around align-items-center">
+                        <div className="mb-1">
                             {
                                 !showViewAssignment && 
                                 <button className="btn btn-danger" onClick={this.toggleShowViewAssignment}>
@@ -83,7 +83,7 @@ class AssignmentTab extends React.Component{
                             }
                             
                         </div>
-                        <div>
+                        <div className="mb-1">
                             {
                                 !showUploadAssignment &&
                                 <button className="btn btn-success" onClick={this.toggleShowUploadAssignment}>

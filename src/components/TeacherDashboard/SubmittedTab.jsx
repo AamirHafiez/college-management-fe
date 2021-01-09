@@ -97,7 +97,7 @@ class SubmittedTab extends React.Component {
         disableGrading ? disabled = 'disabled' : disabled = '';
 
         return(
-            <div className="d-flex shadow rounded justify-content-between bg-light p-3 mb-2">
+            <div className="d-flex flex-wrap shadow rounded justify-content-between bg-light p-3 mb-2">
                 <div className="col-5">
                     <p className="m-0 p-0" style={{fontSize: 22, fontWeight: "bold"}}>{name}</p>
                     <p className="m-0 p-0">{email}</p>

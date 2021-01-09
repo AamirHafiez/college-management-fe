@@ -21,6 +21,7 @@ class SignUpContainer extends React.Component {
     render() {
 
         const { showSignUpComponent } = this.state;
+        const { toggleLogin } = this.props;
 
         return(
             <div className="fade-in" style={{backgroundColor: '#989DDD',position: 'absolute', height: '110%', width: '95%', marginLeft: '-5%'}}> 
@@ -34,12 +35,14 @@ class SignUpContainer extends React.Component {
                    showSignUpComponent === 'signUpAsStudent' &&
                    <SignUpAsStudent
                         handleClickOnSignUpAsBtn={this.handleClickOnSignUpAsBtn}
+                        toggleLogin={toggleLogin}
                    />
                }
                {
                    showSignUpComponent === 'signUpAsTeacher' &&
                    <SignUpAsTeacher
                         handleClickOnSignUpAsBtn={this.handleClickOnSignUpAsBtn}
+                        toggleLogin={toggleLogin}
                    />
                }
             </div>

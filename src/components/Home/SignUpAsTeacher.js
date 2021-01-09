@@ -36,8 +36,23 @@ class SignUpAsTeacher extends React.Component {
             subject
         } = this.state;
 
+        if(name === ''){
+            NotificationManager.error('', `Please enter your valid name`,3000);
+            return;
+        }
+
+        if(email === ''){
+            NotificationManager.error('', `Please enter your valid email`,3000);
+            return;
+        }
+
         if(password !== verify_password){
             NotificationManager.error('Password and verify password', `Don't match`,3000);
+            return;
+        }
+
+        if(subject === ''){
+            NotificationManager.error('', `Please enter your valid subject`,3000);
             return;
         }
 
@@ -70,6 +85,7 @@ class SignUpAsTeacher extends React.Component {
                 branch: 'computer',
                 subject: ''
             });
+            this.props.toggleLogin();
         })
         .catch((error) => {
             console.log('error:', error);

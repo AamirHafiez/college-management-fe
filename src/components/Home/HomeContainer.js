@@ -63,9 +63,11 @@ class HomeContainer extends React.Component {
                 <div className="col-12 mt-2 mb-5">
                     <p className="" style={{fontSize: 50, textAlign: 'center', fontWeight: 'bold', color: '#5255AC'}}>My Classroom</p>
                 </div>
-    
-                <div className="mx-auto col-8 d-flex" style={{marginTop: 100, height: 500, backgroundColor: '#5255AC'}}>
-                    <div className="col-6 d-flex justify-content-center align-items-center" style={{position: 'relative' ,height: '100%'}}>
+                <div>
+                    <p style={{fontSize: 24 ,textAlign: 'center'}}>A mini place for your college where teachers and students can interact for assignments</p>
+                </div>
+                <div className="mx-auto col-8 d-flex home-tabs-container" style={{marginTop: 100, backgroundColor: '#5255AC'}}>
+                    <div className="col-6 d-flex justify-content-center align-items-center home-tab home-tab-1" style={{position: 'relative'}}>
                         <div style={{fontSize: 30,color: 'white' ,textAlign: 'center'}}>
                             <p>Already have an account?</p>
                             <button onClick={this.toggleLogin} className="border-0 col-10 btn btn-success" style={{height: 60, fontSize: 30}}>Login</button>
@@ -74,13 +76,13 @@ class HomeContainer extends React.Component {
                             showLogin && <LoginContainer/>
                         }
                     </div>
-                    <div className="col-6 d-flex justify-content-center align-items-center" style={{position: 'relative' ,height: '100%'}}>
+                    <div className="col-6 d-flex justify-content-center align-items-center home-tab home-tab-2" style={{position: 'relative'}}>
                         <div style={{fontSize: 30,color: 'white' ,textAlign: 'center'}}>
                             <p>Don't have an account?</p>
                             <button onClick={this.toggleLogin} className="border-0 col-10 btn btn-success" style={{height: 60, fontSize: 30}}>Sign up</button>
                         </div>
                         {
-                            !showLogin && <SignUpContainer/>
+                            !showLogin && <SignUpContainer toggleLogin={this.toggleLogin}/>
                         }
                     </div>
                 </div>

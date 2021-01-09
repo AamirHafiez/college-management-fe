@@ -36,6 +36,16 @@ class SignUpAsStudent extends React.Component {
             year
         } = this.state;
 
+        if(name === ''){
+            NotificationManager.error('', `Please enter your valid name`,3000);
+            return;
+        }
+
+        if(email === ''){
+            NotificationManager.error('', `Please enter your valid name`,3000);
+            return;
+        }
+
         if(password !== verify_password){
             NotificationManager.error('Password and verify password', `Don't match`,3000);
             return;
@@ -70,6 +80,7 @@ class SignUpAsStudent extends React.Component {
                 branch: 'computer',
                 year: '2020'
             });
+            this.props.toggleLogin();
         })
         .catch((error) => {
             console.log('error:', error);

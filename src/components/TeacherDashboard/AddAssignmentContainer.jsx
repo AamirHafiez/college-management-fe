@@ -77,7 +77,7 @@ class AddAssignmentContainer extends React.Component {
 
         return(
             <div className="d-flex justify-content-center align-items-center" style={{height: '100vh', width:'100vw', position:'fixed', top: 0,backgroundColor: 'rgba(31,58,96,0.7)'}}>
-                <div className="col-5 mx-auto edit-profile" style={{position: 'relative' ,boxShadow: '5px 5px 7px 2px rgba(0, 0, 0, 0.5)' , height: '80vh', backgroundColor: 'white'}}>
+                <div className="col-11 col-lg-5 mx-auto edit-profile" style={{position: 'relative' ,boxShadow: '5px 5px 7px 2px rgba(0, 0, 0, 0.5)' , height: '80vh', backgroundColor: 'white'}}>
                     <div className="mt-2">
                         <p className="text-primary" style={{fontSize: 28, textAlign: 'center'}}>Add an assignment</p>
                         <img onClick= {handleToggleAddAssignment} style={{position: 'absolute', top: 15, left: '94%', cursor: 'pointer'}} title="close" height={20} width={20} src={'https://www.flaticon.com/svg/static/icons/svg/1828/1828665.svg'} alt="close"/>
