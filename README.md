@@ -1,10 +1,35 @@
-# Getting Started with Create React App
+# College Management System Front End
+This is the front end code for the web app college management system that has been developed using React Js.\
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The backend of the code can be found here:- https://github.com/AamirHafiez/college-management-be \
+
+It is advised that this project is run along with its backend apis.
+
+## About
+College management system is a web app that is used by the student and the teacher of a particular college to interact for the assignments. \
+It has certain functionalities such as :- \
+1. Registration of User (Teacher or Student) \
+2. User authentication using Passport JWT strategy \
+2. Edit profiles \
+3. Teacher can - \
+   3.1 Create new assignment \
+   3.2 View Submissions \
+   3.3 Download submitted assignments \
+   3.4 Grade students based on assignments\
+4. Student can - \
+   4.1 View upcoming assignments based on deadlines \
+   4.2 Submit upcoming assignments as PDFs \
+   4.3 View grades given by teacher for a particular assignment \
+5. Logout \
+6. It is not possible to go to dashboard with logging in or got to home without signing out \
+
 
 ## Available Scripts
 
 In the project directory, you can run:
+
+### `npm install`
+Install all the required dependencies from package.json
 
 ### `npm start`
 
