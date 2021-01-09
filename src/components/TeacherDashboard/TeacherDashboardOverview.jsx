@@ -16,7 +16,7 @@ const TeacherDashboardContainer = (props) => {
 
     return (
         <div>
-            <div className="col-10 mx-auto">
+            <div className="col-10 mx-auto mb-5">
                 <p style={{textAlign: 'center', fontSize: 30}}>Welcome Prof. {teacherData.name}!</p>
             </div>
 

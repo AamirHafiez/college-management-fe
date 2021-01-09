@@ -13,7 +13,8 @@ class ViewSubmissionsContainer extends React.Component {
         this.state = {
             animation: 'slide-down-bounce',
             assignments: [],
-            showDescription: false
+            showDescription: false,
+            showNoSubmissions: true
         }
     }
 
@@ -25,8 +26,16 @@ class ViewSubmissionsContainer extends React.Component {
             }
         })
         .then((response) => {
+            if(response.data.assignments.length === 0){
+                this.setState({
+                    assignments: [],
+                    showNoSubmissions: true
+                });
+                return;
+            }
             this.setState({
-                assignments: response.data.assignments
+                assignments: response.data.assignments,
+                showNoSubmissions: false
             });
         })  
         .catch((error) => {
@@ -47,6 +56,7 @@ class ViewSubmissionsContainer extends React.Component {
         const {
             animation,
             assignments,
+            showNoSubmissions
         } = this.state;
 
         console.log(assignments);
@@ -70,6 +80,13 @@ class ViewSubmissionsContainer extends React.Component {
                                     />
                                 );
                             })
+                        }
+                        {
+                            showNoSubmissions &&
+                            <div style={{textAlign: 'center'}}>
+                                <img className="mt-5" height={180} width={180} src={'https://www.flaticon.com/svg/static/icons/svg/3181/3181997.svg'} alt="nothing"/>
+                                <p className="text-primary mt-5" style={{fontSize: 28}}>There have not been any submission yet, Come back later!</p>
+                            </div>
                         }
                     </div>
                 </div>

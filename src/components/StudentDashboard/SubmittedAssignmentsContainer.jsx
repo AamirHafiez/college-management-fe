@@ -13,6 +13,7 @@ class SubmittedAssignmentsContainer extends React.Component{
         this.state = {
             animationClass: 'slide-from-right',
             assignmentsSubmitted: [],
+            showNoAssignmentsSubmitted: true,
         }
     }
 
@@ -24,8 +25,17 @@ class SubmittedAssignmentsContainer extends React.Component{
             }
         })
         .then((response) => {
+            console.log('-------------------------------------------------',response.data);
+            if(response.data.assignmentsSubmitted === 'none'){
+                this.setState({
+                    assignmentsSubmitted: [],
+                    showNoAssignmentsSubmitted: true
+                });
+                return;
+            }
             this.setState({
-                assignmentsSubmitted: response.data.assignmentsSubmitted
+                assignmentsSubmitted: response.data.assignmentsSubmitted,
+                showNoAssignmentsSubmitted: false
             });
         })
         .catch((error) => {
@@ -46,6 +56,7 @@ class SubmittedAssignmentsContainer extends React.Component{
         const {
             animationClass,
             assignmentsSubmitted,
+            showNoAssignmentsSubmitted
         } = this.state;
 
         return(
@@ -67,6 +78,13 @@ class SubmittedAssignmentsContainer extends React.Component{
                                     />
                                 )
                             })
+                        }
+                        {
+                            showNoAssignmentsSubmitted &&
+                            <div style={{textAlign: 'center'}}>
+                                <img height={180} width={180} src={'https://www.flaticon.com/svg/static/icons/svg/1720/1720481.svg'} alt="nothing"/>
+                                <p className="text-primary mt-5" style={{fontSize: 25}}>You have not submitted any assignments yet!</p>
+                            </div>
                         }
                     </div>
                 </div>

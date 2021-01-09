@@ -5,6 +5,7 @@ import {NotificationManager} from 'react-notifications';
 import cookie from 'react-cookies';
 import {apis} from '../../apis/apis';
 import qs from 'qs';
+import download from 'downloadjs';
 
 class SubmittedTab extends React.Component {
 
@@ -56,6 +57,28 @@ class SubmittedTab extends React.Component {
         });
     }
 
+
+    onClickDownloadButton = () => {
+        let auth = cookie.load('auth');
+        axios.get(apis.downloadPDF, {
+            headers: {
+                'Authorization': `bearer ${auth}`,
+            },
+            responseType: 'blob',
+            params: {
+                student: this.props.student._id,
+                assignment: this.props.assignment._id
+            }
+        })
+        .then((response) => {
+            download(response.data, this.props.assignment.title + '-' + this.props.student.name, 'application/pdf');
+        })
+        .catch((error) => {
+            console.log(error);
+            NotificationManager.error('Something went wrong', 'Error:', 3000);
+        });
+    }
+
     render() {
 
         const {
@@ -85,7 +108,7 @@ class SubmittedTab extends React.Component {
                 </div>
                 <div>
                     <p className="m-0 p-0" style={{fontSize: 18, fontWeight: 'bold'}}>Assignment</p>
-                    <button className="btn btn-danger">
+                    <button onClick={this.onClickDownloadButton} className="btn btn-danger">
                         Download
                     </button>
                 </div>
